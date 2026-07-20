@@ -1,0 +1,126 @@
+[
+  {
+    "id": "creamy-pesto-chicken-pasta-bake",
+    "title": "Creamy Pesto Chicken Pasta Bake",
+    "category": "Pasta",
+    "time": "40 min",
+    "servings": "6\u20138",
+    "ingredients": [
+      "1 lb pasta of choice",
+      "1/2 cup sun-dried tomatoes with some of their oil",
+      "1 lb chicken, cut into bite-size pieces",
+      "1 tbsp butter",
+      "1/2 yellow onion, diced",
+      "Salt and pepper, to taste",
+      "1 tsp red pepper flakes, or to taste",
+      "1 tsp smoked paprika, or to taste",
+      "1 tsp oregano, or to taste",
+      "6\u20138 cloves garlic, minced",
+      "2 cups heavy cream, room temperature",
+      "1\u20132 cups cooked broccoli",
+      "2 handfuls spinach",
+      "6\u20138 oz freshly shredded Parmesan, divided",
+      "8 oz freshly shredded mozzarella, divided",
+      "1/2 cup pesto, or to taste",
+      "Parsley, for garnish"
+    ],
+    "steps": [
+      "Preheat the oven to 350\u00b0F and let the heavy cream come to room temperature.",
+      "Boil the pasta in salted water until just shy of al dente. Drain and set aside.",
+      "Heat a little sun-dried tomato oil in a large oven-safe skillet or Dutch oven. Season and cook the chicken until browned; remove it temporarily.",
+      "Melt in the butter. Cook the onion until softened, then add the garlic and seasonings.",
+      "Lower the heat and slowly stir in the cream. Add pesto, broccoli, spinach, chicken, and part of both cheeses.",
+      "Fold in the pasta. Top with the remaining Parmesan and mozzarella.",
+      "Bake until hot and bubbling, then garnish with parsley."
+    ],
+    "note": "Costco pesto works especially well here. Add extra garlic or red pepper flakes to taste."
+  },
+  {
+    "id": "onion-crunch-chicken",
+    "title": "Onion Crunch Chicken",
+    "category": "Chicken",
+    "time": "25 min",
+    "servings": "4",
+    "ingredients": [
+      "Chicken breasts or cutlets",
+      "Crispy fried onions",
+      "Seasoned coating or breadcrumbs",
+      "Butter or oil",
+      "Salt, pepper, and preferred seasonings"
+    ],
+    "steps": [
+      "Preheat the oven and prepare a lined baking sheet.",
+      "Season the chicken on both sides.",
+      "Crush the crispy onions and combine them with the coating.",
+      "Press the topping firmly onto the chicken.",
+      "Bake until golden and the chicken reaches a safe internal temperature."
+    ],
+    "note": "This page is connected and ready for your exact Canva ingredient amounts when we add the full recipe data."
+  },
+  {
+    "id": "caramel-smores-bars",
+    "title": "Caramel S'mores Bars",
+    "category": "Desserts",
+    "time": "20 min",
+    "servings": "12",
+    "ingredients": [
+      "Graham cracker base",
+      "Chocolate",
+      "Caramel",
+      "Marshmallows",
+      "Butter"
+    ],
+    "steps": [
+      "Prepare the graham cracker base.",
+      "Layer with caramel and chocolate.",
+      "Top with marshmallows.",
+      "Bake or broil until toasted and set.",
+      "Cool before slicing."
+    ],
+    "note": "The exact Canva measurements will replace this condensed version in the full recipe import."
+  },
+  {
+    "id": "homemade-nutter-butters",
+    "title": "Homemade Nutter Butters",
+    "category": "Desserts",
+    "time": "12 min",
+    "servings": "20",
+    "ingredients": [
+      "Peanut butter cookie dough",
+      "Peanut butter filling",
+      "Powdered sugar",
+      "Butter"
+    ],
+    "steps": [
+      "Shape and bake the peanut butter cookies.",
+      "Let them cool completely.",
+      "Mix the peanut butter filling.",
+      "Sandwich the filling between matching cookies."
+    ],
+    "note": "The full Canva measurements will be inserted during the complete recipe import."
+  },
+  {
+    "id": "challah-bread",
+    "title": "Challah Bread",
+    "category": "Bakery",
+    "time": "25 min",
+    "servings": "1 loaf",
+    "ingredients": [
+      "Flour",
+      "Yeast",
+      "Eggs",
+      "Warm water",
+      "Sugar or honey",
+      "Oil",
+      "Salt"
+    ],
+    "steps": [
+      "Mix and knead the enriched dough until smooth.",
+      "Let the dough rise until doubled.",
+      "Divide, roll, and braid the strands.",
+      "Proof the shaped loaf.",
+      "Brush with egg wash and bake until deeply golden."
+    ],
+    "note": "The full Canva measurements will be inserted during the complete recipe import."
+  }
+]
