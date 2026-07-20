@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf4e8">
+  <title>From My Kitchen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="paper-noise"></div>
+
+  <header class="site-header">
+    <button class="brand" data-view="home" aria-label="Go home">
+      <span class="brand-script">From My Kitchen</span>
+      <span class="brand-subtitle">made with love for the people I love ♡</span>
+    </button>
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <button data-view="home">Home</button>
+      <button data-view="favorites">Favorites</button>
+      <button data-view="shopping">Shopping List</button>
+      <button data-action="open-add">Add Recipe</button>
+    </nav>
+  </header>
+
+  <main id="app" class="app-shell" aria-live="polite"></main>
+
+  <nav class="mobile-nav" aria-label="Mobile navigation">
+    <button data-view="home"><span>⌂</span>Home</button>
+    <button data-view="favorites"><span>♡</span>Favorites</button>
+    <button data-view="shopping"><span>⌑</span>List</button>
+    <button data-action="open-add"><span>＋</span>Add</button>
+  </nav>
+
+  <dialog id="addRecipeDialog" class="recipe-dialog">
+    <form id="addRecipeForm" method="dialog">
+      <button type="button" class="dialog-close" data-action="close-add" aria-label="Close">×</button>
+      <p class="eyebrow">a new favorite</p>
+      <h2>Add a Recipe ♡</h2>
+      <label>Recipe name<input required name="title" placeholder="Grandma's apple pie"></label>
+      <label>Category<input name="category" placeholder="Dessert"></label>
+      <label>Description<textarea name="description" placeholder="A little note about this recipe"></textarea></label>
+      <label>Ingredients <small>one per line</small><textarea required name="ingredients" placeholder="2 cups flour&#10;1 cup sugar"></textarea></label>
+      <label>Directions <small>one step per line</small><textarea required name="steps" placeholder="Preheat the oven.&#10;Mix the ingredients."></textarea></label>
+      <div class="dialog-actions">
+        <button type="button" class="secondary-btn" data-action="close-add">Cancel</button>
+        <button class="primary-btn" type="submit">Save Recipe</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="js/recipes.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
