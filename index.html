@@ -190,10 +190,15 @@ let currentScreen = 'home';
 
 const customRecipes = JSON.parse(localStorage.getItem('fmkCustomRecipes') || '[]');
 
-fetch('recipes.json').then(r => r.json()).then(data => {
+const recipesReady = fetch('recipes.json').then(r => {
+  if (!r.ok) throw new Error('Could not load recipes.json');
+  return r.json();
+}).then(data => {
   recipes = [...data, ...customRecipes];
+  return recipes;
 }).catch(() => {
   recipes = customRecipes;
+  return recipes;
 });
 
 function pushHistory(next) {
@@ -220,7 +225,8 @@ function goBack(){
 window.addEventListener('popstate', goHome);
 
 function findRecipe(id){ return recipes.find(r=>r.id===id); }
-function openRecipe(id){
+async function openRecipe(id){
+  await recipesReady;
   const r=findRecipe(id); if(!r) return;
   const favs=JSON.parse(localStorage.getItem('fmkFavorites')||'[]');
   const isFav=favs.includes(id);
@@ -251,7 +257,8 @@ function openRecipe(id){
     </article>`;
   showScreen('recipe');
 }
-function showRecipes(category, query=''){
+async function showRecipes(category, query=''){
+  await recipesReady;
   const title = query ? `Search: ${query}` : (category==='All'?'All Recipes':category);
   document.getElementById('browseTitle').textContent=title;
   const q=query.toLowerCase();
@@ -278,7 +285,8 @@ function toggleFavorite(id){
   openRecipe(id);
   historyStack.pop(); // avoid adding an extra recipe history entry on refresh
 }
-function renderFavorites(){
+async function renderFavorites(){
+  await recipesReady;
   const favs=JSON.parse(localStorage.getItem('fmkFavorites')||'[]');
   renderGrid(document.getElementById('favoriteGrid'),recipes.filter(r=>favs.includes(r.id)));
 }
