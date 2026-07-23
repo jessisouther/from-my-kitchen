@@ -7,326 +7,161 @@
   <meta name="theme-color" content="#fbf8f0">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Montserrat:wght@400;500;600&display=swap');
-    :root{
-      --paper:#fbf8f0; --ink:#27364b; --blue:#315f91; --soft:#e8f0f7;
-      --line:#e8dcc7; --card:#fffdf8;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;min-height:100%;background:var(--paper);color:var(--ink)}
-    body{font-family:Montserrat,Arial,sans-serif}
-    button,input,textarea,select{font:inherit}
-    button,a{touch-action:manipulation}
+    :root{--paper:#fbf8f0;--ink:#27364b;--blue:#315f91;--soft:#e8f0f7;--line:#e8dcc7;--card:#fffdf8}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--paper);color:var(--ink)}
+    body{font-family:Montserrat,Arial,sans-serif}button,input,textarea,select{font:inherit}button,a{touch-action:manipulation}
     .app{max-width:923px;margin:0 auto;min-height:100vh;background:var(--paper)}
-    .home-canvas{position:relative;width:100%;line-height:0}
-    .home-canvas>img{display:block;width:100%;height:auto}
+    .home-canvas{position:relative;width:100%;line-height:0}.home-canvas>img{display:block;width:100%;height:auto}
     .hotspot{position:absolute;border:0;background:transparent;cursor:pointer;border-radius:18px}
     .hotspot:focus-visible{outline:4px solid rgba(49,95,145,.55);background:rgba(255,255,255,.15)}
-    .search-overlay{
-      position:absolute;left:11%;top:36.6%;width:72%;height:4.9%;
-      border:0;background:transparent;padding:0 7%;font-family:Caveat,cursive;
-      font-size:clamp(18px,3.5vw,34px);color:#333;outline:none;line-height:1;
-    }
+    .search-overlay{position:absolute;left:11%;top:36.6%;width:72%;height:4.9%;border:0;background:transparent;padding:0 7%;font-family:Caveat,cursive;font-size:clamp(18px,3.5vw,34px);color:#333;outline:none;line-height:1}
     .search-overlay::placeholder{color:transparent}
-    .add-top{left:67%;top:1%;width:28%;height:8%}
-    .cat-all{left:3%;top:41.7%;width:12.5%;height:8.7%}
-    .cat-chicken{left:16%;top:41.7%;width:13%;height:8.7%}
-    .cat-pasta{left:29.4%;top:41.7%;width:13%;height:8.7%}
-    .cat-beef{left:42.7%;top:41.7%;width:13%;height:8.7%}
-    .cat-soups{left:56%;top:41.7%;width:13%;height:8.7%}
-    .cat-salads{left:69.3%;top:41.7%;width:13%;height:8.7%}
-    .cat-more{left:82.6%;top:41.7%;width:13%;height:8.7%}
-    .view-all{left:76%;top:51%;width:19%;height:4%}
-    .card1{left:3%;top:55.3%;width:18%;height:16.6%}
-    .card2{left:21.3%;top:55.3%;width:18%;height:16.6%}
-    .card3{left:39.6%;top:55.3%;width:18%;height:16.6%}
-    .card4{left:57.9%;top:55.3%;width:18%;height:16.6%}
-    .card5{left:76.2%;top:55.3%;width:18%;height:16.6%}
-    .nav-home{left:4%;top:87%;width:20%;height:10%}
-    .nav-fav{left:28%;top:87%;width:20%;height:10%}
-    .nav-list{left:52%;top:87%;width:20%;height:10%}
-    .nav-add{left:76%;top:87%;width:20%;height:10%}
-    .screen{display:none;min-height:100vh;padding-bottom:92px;background:
-      radial-gradient(circle at 10% 5%,rgba(91,130,169,.08),transparent 24%),
-      linear-gradient(var(--paper),var(--paper))}
-    .screen.active{display:block}
-    .topbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;padding:16px;
-      background:rgba(251,248,240,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
-    .icon-btn{border:1px solid var(--line);background:var(--card);border-radius:999px;width:44px;height:44px;
-      font-size:24px;cursor:pointer;color:var(--blue)}
-    .topbar h1{font-family:Caveat,cursive;font-size:34px;font-weight:500;margin:0;color:var(--blue)}
-    .content{padding:18px}
-    .paper-card{background:rgba(255,253,248,.96);border:1px solid var(--line);border-radius:24px;
-      box-shadow:0 14px 34px rgba(95,75,45,.08);padding:22px;margin-bottom:18px}
-    .recipe-title{font-family:Caveat,cursive;font-size:clamp(42px,7vw,68px);line-height:1;color:var(--blue);margin:4px 0 10px}
-    .meta{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 20px}
-    .pill{background:var(--soft);border-radius:999px;padding:8px 13px}
-    h2{font-family:Caveat,cursive;font-size:36px;color:var(--blue);font-weight:500;margin:12px 0}
-    ul,ol{line-height:1.75;padding-left:24px}
-    .action-row{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
-    .action{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:12px 16px;cursor:pointer}
-    .action.primary{background:var(--soft);color:var(--blue);font-weight:600}
-    .bottom-nav{position:fixed;left:50%;bottom:0;transform:translateX(-50%);z-index:20;width:min(923px,100%);
-      display:grid;grid-template-columns:repeat(4,1fr);background:rgba(255,253,248,.98);
-      border-top:1px solid var(--line);padding:max(9px,env(safe-area-inset-bottom)) 4px 8px}
-    .bottom-nav button{border:0;background:transparent;padding:7px 2px;color:#333;cursor:pointer}
-    .bottom-nav .symbol{display:block;font-size:24px}
-    .bottom-nav .label{font-family:Caveat,cursive;font-size:22px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
-    .recipe-tile{border:1px solid var(--line);background:var(--card);border-radius:20px;padding:18px;cursor:pointer;text-align:left}
-    .recipe-tile h3{font-family:Caveat,cursive;color:var(--blue);font-size:29px;line-height:1.05;margin:0 0 10px}
-    .empty{text-align:center;padding:42px 18px;color:#5c6672}
-    .form-grid{display:grid;gap:14px}
-    input.text,textarea.text,select.text{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:14px;background:#fff}
-    textarea.text{min-height:130px}
-    @media(max-width:520px){
-      .topbar h1{font-size:29px}.content{padding:12px}.paper-card{padding:17px;border-radius:19px}
-      .bottom-nav .label{font-size:19px}
-    }
+    .add-top{left:67%;top:1%;width:28%;height:8%}.cat-all{left:3%;top:41.7%;width:12.5%;height:8.7%}.cat-chicken{left:16%;top:41.7%;width:13%;height:8.7%}.cat-pasta{left:29.4%;top:41.7%;width:13%;height:8.7%}.cat-beef{left:42.7%;top:41.7%;width:13%;height:8.7%}.cat-soups{left:56%;top:41.7%;width:13%;height:8.7%}.cat-salads{left:69.3%;top:41.7%;width:13%;height:8.7%}.cat-more{left:82.6%;top:41.7%;width:13%;height:8.7%}.view-all{left:76%;top:51%;width:19%;height:4%}
+    .card1{left:3%;top:55.3%;width:18%;height:16.6%}.card2{left:21.3%;top:55.3%;width:18%;height:16.6%}.card3{left:39.6%;top:55.3%;width:18%;height:16.6%}.card4{left:57.9%;top:55.3%;width:18%;height:16.6%}.card5{left:76.2%;top:55.3%;width:18%;height:16.6%}
+    .nav-home{left:4%;top:87%;width:20%;height:10%}.nav-fav{left:28%;top:87%;width:20%;height:10%}.nav-list{left:52%;top:87%;width:20%;height:10%}.nav-add{left:76%;top:87%;width:20%;height:10%}
+    .screen{display:none;min-height:100vh;padding-bottom:92px;background:radial-gradient(circle at 10% 5%,rgba(91,130,169,.08),transparent 24%),linear-gradient(var(--paper),var(--paper))}.screen.active{display:block}
+    .topbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;padding:16px;background:rgba(251,248,240,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
+    .icon-btn{border:1px solid var(--line);background:var(--card);border-radius:999px;width:44px;height:44px;font-size:24px;cursor:pointer;color:var(--blue)}
+    .topbar h1{font-family:Caveat,cursive;font-size:34px;font-weight:500;margin:0;color:var(--blue)}.content{padding:18px}
+    .paper-card{background:rgba(255,253,248,.96);border:1px solid var(--line);border-radius:24px;box-shadow:0 14px 34px rgba(95,75,45,.08);padding:22px;margin-bottom:18px}
+    .recipe-title{font-family:Caveat,cursive;font-size:clamp(42px,7vw,68px);line-height:1;color:var(--blue);margin:4px 0 10px}.meta{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 20px}.pill{background:var(--soft);border-radius:999px;padding:8px 13px}
+    h2{font-family:Caveat,cursive;font-size:36px;color:var(--blue);font-weight:500;margin:12px 0}ul,ol{line-height:1.75;padding-left:24px}
+    .action-row{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}.action{border:1px solid var(--line);background:var(--card);border-radius:16px;padding:12px 16px;cursor:pointer}.action.primary{background:var(--soft);color:var(--blue);font-weight:600}
+    .bottom-nav{position:fixed;left:50%;bottom:0;transform:translateX(-50%);z-index:20;width:min(923px,100%);display:grid;grid-template-columns:repeat(4,1fr);background:rgba(255,253,248,.98);border-top:1px solid var(--line);padding:max(9px,env(safe-area-inset-bottom)) 4px 8px}.bottom-nav button{border:0;background:transparent;padding:7px 2px;color:#333;cursor:pointer}.bottom-nav .symbol{display:block;font-size:24px}.bottom-nav .label{font-family:Caveat,cursive;font-size:22px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}.recipe-tile{border:1px solid var(--line);background:var(--card);border-radius:20px;padding:18px;cursor:pointer;text-align:left}.recipe-tile h3{font-family:Caveat,cursive;color:var(--blue);font-size:29px;line-height:1.05;margin:0 0 10px}.empty{text-align:center;padding:42px 18px;color:#5c6672}
+    .form-grid{display:grid;gap:14px}input.text,textarea.text,select.text{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:14px;background:#fff}textarea.text{min-height:130px}
+    @media(max-width:520px){.topbar h1{font-size:29px}.content{padding:12px}.paper-card{padding:17px;border-radius:19px}.bottom-nav .label{font-size:19px}}
+
+    /* Cozy watercolor recipe-page update */
+    #recipe{background:
+      radial-gradient(circle at 8% 18%,rgba(112,151,184,.16),transparent 18%),
+      radial-gradient(circle at 92% 36%,rgba(222,165,128,.14),transparent 20%),
+      radial-gradient(circle at 12% 78%,rgba(137,166,125,.12),transparent 19%),
+      #fbf7ed;}
+    #recipe .content{max-width:900px;margin:0 auto;padding:24px 28px 120px;overflow:hidden}
+    .recipe-page{position:relative}
+    .recipe-page:before,.recipe-page:after{content:"";position:absolute;z-index:0;border-radius:50%;filter:blur(1px);opacity:.55;pointer-events:none}
+    .recipe-page:before{width:180px;height:120px;right:-70px;top:310px;background:radial-gradient(ellipse,rgba(232,168,117,.38),rgba(232,168,117,0) 72%);transform:rotate(-12deg)}
+    .recipe-page:after{width:190px;height:130px;left:-90px;bottom:210px;background:radial-gradient(ellipse,rgba(104,147,180,.30),rgba(104,147,180,0) 72%);transform:rotate(16deg)}
+    .recipe-hero{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(220px,.75fr);gap:26px;align-items:center;margin:4px 0 34px;padding:30px 34px;background:rgba(255,252,244,.92);border:1px solid rgba(213,194,162,.72);border-radius:34px;box-shadow:0 18px 45px rgba(91,70,43,.10)}
+    .recipe-hero:before,.recipe-hero:after{content:"";position:absolute;width:92px;height:28px;background:rgba(224,199,147,.58);top:-11px;filter:drop-shadow(0 2px 2px rgba(87,68,39,.10));z-index:3}
+    .recipe-hero:before{left:60px;transform:rotate(-3deg)}.recipe-hero:after{right:60px;transform:rotate(4deg)}
+    .recipe-kicker{font-family:Caveat,cursive;color:#7a8d66;font-size:25px;margin-bottom:5px}
+    .recipe-page .recipe-title{font-size:clamp(48px,7.5vw,76px);line-height:.93;margin:0 0 17px;text-shadow:0 1px 0 white}
+    .recipe-page .meta{margin:0 0 18px}.recipe-page .pill{background:rgba(229,238,245,.82);border:1px solid rgba(121,151,177,.16);padding:9px 14px}
+    .recipe-page .action-row{margin:12px 0 0}.recipe-page .action{background:#fffaf0;border-color:#dfceb1;box-shadow:0 5px 12px rgba(92,69,38,.06)}
+    .recipe-page .action.primary{background:#dce9f2;color:#285b88;transform:rotate(-1deg)}
+    .hero-art{position:relative;min-height:245px;display:grid;place-items:center}
+    .watercolor-plate{position:relative;width:230px;height:230px;border-radius:50%;display:grid;place-items:center;background:
+      radial-gradient(circle at 42% 38%,rgba(255,255,255,.92) 0 34%,transparent 35%),
+      radial-gradient(circle at 52% 52%,rgba(219,229,213,.92) 0 49%,rgba(117,153,112,.42) 52%,transparent 70%);
+      filter:drop-shadow(0 17px 18px rgba(72,69,52,.13));transform:rotate(4deg)}
+    .watercolor-plate:before{content:"";position:absolute;inset:16%;border-radius:48% 52% 46% 54%;background:radial-gradient(circle at 35% 25%,#fff9df 0 8%,transparent 9%),linear-gradient(135deg,#dfae6d,#bd6d45 45%,#769566 46% 62%,#ead38c 63%);opacity:.88;filter:saturate(.8) blur(.25px)}
+    .watercolor-plate span{position:relative;z-index:2;font-size:62px;filter:drop-shadow(0 4px 3px rgba(60,48,30,.14))}
+    .recipe-columns{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:26px;align-items:start}
+    .torn-paper{position:relative;background:#fffdf7;padding:28px 31px 30px;border:1px solid rgba(218,199,167,.74);box-shadow:0 16px 34px rgba(89,68,40,.09);clip-path:polygon(0 1.6%,5% .5%,10% 1.8%,16% .3%,22% 1.2%,29% .2%,36% 1.7%,43% .4%,51% 1.5%,58% .3%,66% 1.5%,73% .4%,81% 1.5%,88% .5%,94% 1.7%,100% .6%,99.2% 98.3%,93% 99.5%,86% 98.6%,79% 99.7%,72% 98.5%,64% 99.5%,57% 98.4%,50% 99.7%,42% 98.5%,35% 99.6%,28% 98.6%,21% 99.8%,14% 98.5%,7% 99.5%,.6% 98%)}
+    .torn-paper:before{content:"";position:absolute;width:84px;height:26px;left:50%;top:-8px;transform:translateX(-50%) rotate(-2deg);background:rgba(219,190,136,.54)}
+    .torn-paper h2{font-size:43px;margin:0 0 13px}.torn-paper ul,.torn-paper ol{margin:0;padding-left:23px;line-height:1.72}.torn-paper li{margin:5px 0}
+    .directions-paper{transform:rotate(.4deg)}.ingredients-paper{transform:rotate(-.5deg)}
+    .notes-card{position:relative;z-index:1;margin:28px auto 0;max-width:720px;padding:26px 31px 27px;background:#f3ead4;border:1px solid #dfca9e;box-shadow:0 12px 24px rgba(88,65,32,.09);transform:rotate(-.4deg)}
+    .notes-card:before{content:"";position:absolute;width:105px;height:27px;top:-10px;left:calc(50% - 52px);background:rgba(188,160,105,.44);transform:rotate(2deg)}
+    .notes-card h2{margin:0 0 7px}.teaching-tip{margin-top:15px;padding-top:14px;border-top:1px dashed #bda980;color:#596b4f}
+    .recipe-footer-nav{position:relative;z-index:1;display:flex;justify-content:space-between;gap:12px;margin:28px 4px 0}.recipe-footer-nav .action{min-width:120px}
+    @media(max-width:720px){#recipe .content{padding:16px 14px 105px}.recipe-hero{grid-template-columns:1fr;padding:27px 20px 20px;text-align:center}.recipe-hero .meta,.recipe-hero .action-row{justify-content:center}.hero-art{min-height:180px}.watercolor-plate{width:175px;height:175px}.recipe-columns{grid-template-columns:1fr;gap:22px}.torn-paper{padding:25px 23px 28px}.recipe-page .recipe-title{font-size:52px}.recipe-footer-nav{flex-wrap:wrap}.recipe-footer-nav .action{flex:1}}
   </style>
 </head>
 <body>
 <div class="app">
-  <main id="home" class="screen active" aria-label="Home">
-    <div class="home-canvas">
-      <img src="assets/approved-home.png" alt="From My Kitchen watercolor homepage">
-      <input id="homeSearch" class="search-overlay" aria-label="Search recipes or ingredients">
-      <button class="hotspot add-top" aria-label="Add recipe" onclick="showScreen('add')"></button>
-      <button class="hotspot cat-all" aria-label="All recipes" onclick="showRecipes('All')"></button>
-      <button class="hotspot cat-chicken" aria-label="Chicken recipes" onclick="showRecipes('Chicken')"></button>
-      <button class="hotspot cat-pasta" aria-label="Pasta recipes" onclick="showRecipes('Pasta')"></button>
-      <button class="hotspot cat-beef" aria-label="Beef recipes" onclick="showRecipes('Beef')"></button>
-      <button class="hotspot cat-soups" aria-label="Soup recipes" onclick="showRecipes('Soups')"></button>
-      <button class="hotspot cat-salads" aria-label="Salad recipes" onclick="showRecipes('Salads')"></button>
-      <button class="hotspot cat-more" aria-label="More categories" onclick="showRecipes('All')"></button>
-      <button class="hotspot view-all" aria-label="View all recipes" onclick="showRecipes('All')"></button>
-      <button class="hotspot card1" aria-label="Creamy Pesto Chicken Pasta Bake" onclick="openRecipe('creamy-pesto-chicken-pasta-bake')"></button>
-      <button class="hotspot card2" aria-label="Onion Crunch Chicken" onclick="openRecipe('onion-crunch-chicken')"></button>
-      <button class="hotspot card3" aria-label="Caramel S'mores Bars" onclick="openRecipe('caramel-smores-bars')"></button>
-      <button class="hotspot card4" aria-label="Homemade Nutter Butters" onclick="openRecipe('homemade-nutter-butters')"></button>
-      <button class="hotspot card5" aria-label="Challah Bread" onclick="openRecipe('challah-bread')"></button>
-      <button class="hotspot nav-home" aria-label="Home" onclick="goHome()"></button>
-      <button class="hotspot nav-fav" aria-label="Favorites" onclick="showScreen('favorites')"></button>
-      <button class="hotspot nav-list" aria-label="Shopping list" onclick="showScreen('list')"></button>
-      <button class="hotspot nav-add" aria-label="Add recipe" onclick="showScreen('add')"></button>
-    </div>
-  </main>
+  <main id="home" class="screen active" aria-label="Home"><div class="home-canvas">
+    <img src="assets/approved-home.png" alt="From My Kitchen watercolor homepage">
+    <input id="homeSearch" class="search-overlay" aria-label="Search recipes or ingredients">
+    <button class="hotspot add-top" aria-label="Add recipe" onclick="showScreen('add')"></button>
+    <button class="hotspot cat-all" aria-label="All recipes" onclick="showRecipes('All')"></button>
+    <button class="hotspot cat-chicken" aria-label="Chicken recipes" onclick="showRecipes('Chicken')"></button>
+    <button class="hotspot cat-pasta" aria-label="Pasta recipes" onclick="showRecipes('Pasta')"></button>
+    <button class="hotspot cat-beef" aria-label="Beef recipes" onclick="showRecipes('Beef')"></button>
+    <button class="hotspot cat-soups" aria-label="Soup recipes" onclick="showRecipes('Soups')"></button>
+    <button class="hotspot cat-salads" aria-label="Salad recipes" onclick="showRecipes('Salads')"></button>
+    <button class="hotspot cat-more" aria-label="More categories" onclick="showRecipes('All')"></button>
+    <button class="hotspot view-all" aria-label="View all recipes" onclick="showRecipes('All')"></button>
+    <button class="hotspot card1" aria-label="Creamy Pesto Chicken Pasta Bake" onclick="openRecipe('creamy-pesto-chicken-pasta-bake')"></button>
+    <button class="hotspot card2" aria-label="Onion Crunch Chicken" onclick="openRecipe('onion-crunch-chicken')"></button>
+    <button class="hotspot card3" aria-label="Caramel S'mores Bars" onclick="openRecipe('caramel-smores-bars')"></button>
+    <button class="hotspot card4" aria-label="Homemade Nutter Butters" onclick="openRecipe('homemade-nutter-butters')"></button>
+    <button class="hotspot card5" aria-label="Challah Bread" onclick="openRecipe('challah-bread')"></button>
+    <button class="hotspot nav-home" aria-label="Home" onclick="goHome()"></button><button class="hotspot nav-fav" aria-label="Favorites" onclick="showScreen('favorites')"></button><button class="hotspot nav-list" aria-label="Shopping list" onclick="showScreen('list')"></button><button class="hotspot nav-add" aria-label="Add recipe" onclick="showScreen('add')"></button>
+  </div></main>
 
-  <section id="recipe" class="screen">
-    <header class="topbar">
-      <button class="icon-btn" onclick="goBack()" aria-label="Back">←</button>
-      <h1>From My Kitchen</h1>
-      <button class="icon-btn" onclick="goHome()" aria-label="Home" style="margin-left:auto">⌂</button>
-    </header>
-    <div id="recipeContent" class="content"></div>
-  </section>
-
-  <section id="browse" class="screen">
-    <header class="topbar">
-      <button class="icon-btn" onclick="goBack()" aria-label="Back">←</button>
-      <h1 id="browseTitle">All Recipes</h1>
-      <button class="icon-btn" onclick="goHome()" aria-label="Home" style="margin-left:auto">⌂</button>
-    </header>
-    <div class="content">
-      <div id="browseGrid" class="grid"></div>
-    </div>
-  </section>
-
-  <section id="favorites" class="screen">
-    <header class="topbar">
-      <button class="icon-btn" onclick="goBack()" aria-label="Back">←</button>
-      <h1>Favorites</h1>
-      <button class="icon-btn" onclick="goHome()" aria-label="Home" style="margin-left:auto">⌂</button>
-    </header>
-    <div class="content"><div id="favoriteGrid" class="grid"></div></div>
-  </section>
-
-  <section id="list" class="screen">
-    <header class="topbar">
-      <button class="icon-btn" onclick="goBack()" aria-label="Back">←</button>
-      <h1>Shopping List</h1>
-      <button class="icon-btn" onclick="goHome()" aria-label="Home" style="margin-left:auto">⌂</button>
-    </header>
-    <div class="content">
-      <div class="paper-card">
-        <div class="action-row">
-          <button class="action" onclick="clearList()">Clear list</button>
-        </div>
-        <ul id="shoppingItems"></ul>
-      </div>
-    </div>
-  </section>
-
-  <section id="add" class="screen">
-    <header class="topbar">
-      <button class="icon-btn" onclick="goBack()" aria-label="Back">←</button>
-      <h1>Add Recipe</h1>
-      <button class="icon-btn" onclick="goHome()" aria-label="Home" style="margin-left:auto">⌂</button>
-    </header>
-    <div class="content">
-      <form class="paper-card form-grid" onsubmit="saveCustomRecipe(event)">
-        <input class="text" id="newTitle" required placeholder="Recipe title">
-        <select class="text" id="newCategory">
-          <option>Chicken</option><option>Pasta</option><option>Beef</option><option>Soups</option>
-          <option>Salads</option><option>Sides</option><option>Bakery</option><option>Desserts</option><option>Other</option>
-        </select>
-        <textarea class="text" id="newIngredients" required placeholder="Ingredients, one per line"></textarea>
-        <textarea class="text" id="newSteps" required placeholder="Directions, one step per line"></textarea>
-        <button class="action primary" type="submit">Save Recipe</button>
-      </form>
-    </div>
-  </section>
-
-  <nav id="bottomNav" class="bottom-nav" hidden>
-    <button onclick="goHome()"><span class="symbol">⌂</span><span class="label">Home</span></button>
-    <button onclick="showScreen('favorites')"><span class="symbol">♡</span><span class="label">Favorites</span></button>
-    <button onclick="showScreen('list')"><span class="symbol">🛒</span><span class="label">List</span></button>
-    <button onclick="showScreen('add')"><span class="symbol">＋</span><span class="label">Add</span></button>
-  </nav>
+  <section id="recipe" class="screen"><header class="topbar"><button class="icon-btn" onclick="goBack()" aria-label="Back">←</button><h1>From My Kitchen</h1><button class="icon-btn" onclick="goHome()" aria-label="Home" style="margin-left:auto">⌂</button></header><div id="recipeContent" class="content"></div></section>
+  <section id="browse" class="screen"><header class="topbar"><button class="icon-btn" onclick="goBack()" aria-label="Back">←</button><h1 id="browseTitle">All Recipes</h1><button class="icon-btn" onclick="goHome()" aria-label="Home" style="margin-left:auto">⌂</button></header><div class="content"><div id="browseGrid" class="grid"></div></div></section>
+  <section id="favorites" class="screen"><header class="topbar"><button class="icon-btn" onclick="goBack()" aria-label="Back">←</button><h1>Favorites</h1><button class="icon-btn" onclick="goHome()" aria-label="Home" style="margin-left:auto">⌂</button></header><div class="content"><div id="favoriteGrid" class="grid"></div></div></section>
+  <section id="list" class="screen"><header class="topbar"><button class="icon-btn" onclick="goBack()" aria-label="Back">←</button><h1>Shopping List</h1><button class="icon-btn" onclick="goHome()" aria-label="Home" style="margin-left:auto">⌂</button></header><div class="content"><div class="paper-card"><div class="action-row"><button class="action" onclick="clearList()">Clear list</button></div><ul id="shoppingItems"></ul></div></div></section>
+  <section id="add" class="screen"><header class="topbar"><button class="icon-btn" onclick="goBack()" aria-label="Back">←</button><h1>Add Recipe</h1><button class="icon-btn" onclick="goHome()" aria-label="Home" style="margin-left:auto">⌂</button></header><div class="content"><form class="paper-card form-grid" onsubmit="saveCustomRecipe(event)"><input class="text" id="newTitle" required placeholder="Recipe title"><select class="text" id="newCategory"><option>Chicken</option><option>Pasta</option><option>Beef</option><option>Soups</option><option>Salads</option><option>Sides</option><option>Bakery</option><option>Desserts</option><option>Other</option></select><textarea class="text" id="newIngredients" required placeholder="Ingredients, one per line"></textarea><textarea class="text" id="newSteps" required placeholder="Directions, one step per line"></textarea><button class="action primary" type="submit">Save Recipe</button></form></div></section>
+  <nav id="bottomNav" class="bottom-nav" hidden><button onclick="goHome()"><span class="symbol">⌂</span><span class="label">Home</span></button><button onclick="showScreen('favorites')"><span class="symbol">♡</span><span class="label">Favorites</span></button><button onclick="showScreen('list')"><span class="symbol">🛒</span><span class="label">List</span></button><button onclick="showScreen('add')"><span class="symbol">＋</span><span class="label">Add</span></button></nav>
 </div>
 <script>
-let recipes = [];
-let historyStack = [];
-let currentScreen = 'home';
-
-const customRecipes = JSON.parse(localStorage.getItem('fmkCustomRecipes') || '[]');
-
-const recipesReady = fetch('recipes.json').then(r => {
-  if (!r.ok) throw new Error('Could not load recipes.json');
-  return r.json();
-}).then(data => {
-  recipes = [...data, ...customRecipes];
-  return recipes;
-}).catch(() => {
-  recipes = customRecipes;
-  return recipes;
-});
-
-function pushHistory(next) {
-  if (currentScreen !== next) historyStack.push(currentScreen);
-  currentScreen = next;
-}
-function showScreen(id, push=true) {
-  if (push) pushHistory(id); else currentScreen=id;
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.getElementById('bottomNav').hidden = id === 'home';
-  window.scrollTo({top:0,behavior:'instant'});
-  if(id==='favorites') renderFavorites();
-  if(id==='list') renderList();
-}
-function goHome(){
-  historyStack=[];
-  showScreen('home',false);
-}
-function goBack(){
-  const prev = historyStack.pop();
-  if(prev) showScreen(prev,false); else goHome();
-}
-window.addEventListener('popstate', goHome);
-
-function findRecipe(id){ return recipes.find(r=>r.id===id); }
+let recipes=[],historyStack=[],currentScreen='home';
+const customRecipes=JSON.parse(localStorage.getItem('fmkCustomRecipes')||'[]');
+const recipesReady=fetch('recipes.json').then(r=>{if(!r.ok)throw new Error('Could not load recipes.json');return r.json()}).then(data=>{recipes=[...data,...customRecipes];return recipes}).catch(err=>{console.error(err);recipes=customRecipes;return recipes});
+function pushHistory(next){if(currentScreen!==next)historyStack.push(currentScreen);currentScreen=next}
+function showScreen(id,push=true){if(push)pushHistory(id);else currentScreen=id;document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');document.getElementById('bottomNav').hidden=id==='home';window.scrollTo({top:0,behavior:'instant'});if(id==='favorites')renderFavorites();if(id==='list')renderList()}
+function goHome(){historyStack=[];showScreen('home',false)}function goBack(){const prev=historyStack.pop();if(prev)showScreen(prev,false);else goHome()}window.addEventListener('popstate',goHome);
+function findRecipe(id){return recipes.find(r=>r.id===id)}
 async function openRecipe(id){
   await recipesReady;
-  const r=findRecipe(id); if(!r) return;
-  const favs=JSON.parse(localStorage.getItem('fmkFavorites')||'[]');
-  const isFav=favs.includes(id);
+  const r=findRecipe(id);if(!r)return;
+  const favs=JSON.parse(localStorage.getItem('fmkFavorites')||'[]'),isFav=favs.includes(id);
+  const artByCategory={Chicken:'🍗',Pasta:'🍝',Desserts:'🍪',Bakery:'🍞',Soups:'🥣',Salads:'🥗',Beef:'🍲',Sides:'🥔'};
+  const art=artByCategory[r.category]||'🍽️';
   document.getElementById('recipeContent').innerHTML=`
-    <article>
-      <div class="paper-card">
-        <div class="recipe-title">${escapeHtml(r.title)}</div>
-        <div class="meta">
-          <span class="pill">${escapeHtml(r.category||'Recipe')}</span>
-          <span class="pill">⏱ ${escapeHtml(r.time||'')}</span>
-          <span class="pill">🍽 ${escapeHtml(r.servings||'')}</span>
+    <article class="recipe-page">
+      <section class="recipe-hero">
+        <div>
+          <div class="recipe-kicker">A favorite from my kitchen</div>
+          <div class="recipe-title">${escapeHtml(r.title)}</div>
+          <div class="meta">
+            <span class="pill">${escapeHtml(r.category||'Recipe')}</span>
+            <span class="pill">⏱ ${escapeHtml(r.time||'')}</span>
+            <span class="pill">🍽 ${escapeHtml(r.servings||'')}</span>
+          </div>
+          <div class="action-row">
+            <button class="action primary" onclick="toggleFavorite('${r.id}')">${isFav?'♥ Saved Recipe':'♡ Save Recipe'}</button>
+            <button class="action" onclick="addRecipeToList('${r.id}')">🛒 Add to List</button>
+            <button class="action" onclick="window.print()">Print</button>
+          </div>
         </div>
-        <div class="action-row">
-          <button class="action primary" onclick="toggleFavorite('${r.id}')">${isFav?'♥ Saved':'♡ Favorite'}</button>
-          <button class="action" onclick="addRecipeToList('${r.id}')">🛒 Add ingredients</button>
-          <button class="action" onclick="window.print()">Print</button>
-        </div>
+        <div class="hero-art" aria-hidden="true"><div class="watercolor-plate"><span>${art}</span></div></div>
+      </section>
+      <div class="recipe-columns">
+        <section class="torn-paper ingredients-paper">
+          <h2>Ingredients</h2>
+          <ul>${(r.ingredients||[]).map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul>
+        </section>
+        <section class="torn-paper directions-paper">
+          <h2>Directions</h2>
+          <ol>${(r.steps||[]).map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ol>
+        </section>
       </div>
-      <div class="paper-card">
-        <h2>Ingredients</h2>
-        <ul>${(r.ingredients||[]).map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul>
+      ${r.note?`<section class="notes-card"><h2>Kitchen Notes</h2><p>${escapeHtml(r.note)}</p><div class="teaching-tip"><strong>Teaching Tip:</strong> Read through every step first, then prep all ingredients before you begin.</div></section>`:''}
+      <div class="recipe-footer-nav">
+        <button class="action" onclick="goBack()">← Previous</button>
+        <button class="action primary" onclick="showRecipes('All')">Back to Recipes</button>
+        <button class="action" onclick="showNextRecipe('${r.id}')">Next →</button>
       </div>
-      <div class="paper-card">
-        <h2>Directions</h2>
-        <ol>${(r.steps||[]).map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ol>
-      </div>
-      ${r.note?`<div class="paper-card"><h2>Kitchen Notes</h2><p>${escapeHtml(r.note)}</p></div>`:''}
     </article>`;
   showScreen('recipe');
 }
-async function showRecipes(category, query=''){
-  await recipesReady;
-  const title = query ? `Search: ${query}` : (category==='All'?'All Recipes':category);
-  document.getElementById('browseTitle').textContent=title;
-  const q=query.toLowerCase();
-  const list=recipes.filter(r=>{
-    const categoryMatch=category==='All'||r.category===category;
-    const text=[r.title,r.category,...(r.ingredients||[])].join(' ').toLowerCase();
-    return categoryMatch && (!q || text.includes(q));
-  });
-  renderGrid(document.getElementById('browseGrid'),list);
-  showScreen('browse');
-}
-function renderGrid(el,list){
-  if(!list.length){el.innerHTML='<div class="paper-card empty">No recipes found yet.</div>';return;}
-  el.innerHTML=list.map(r=>`
-    <button class="recipe-tile" onclick="openRecipe('${r.id}')">
-      <h3>${escapeHtml(r.title)}</h3>
-      <div>${escapeHtml(r.category||'Recipe')} · ${escapeHtml(r.time||'')}</div>
-    </button>`).join('');
-}
-function toggleFavorite(id){
-  let favs=JSON.parse(localStorage.getItem('fmkFavorites')||'[]');
-  favs=favs.includes(id)?favs.filter(x=>x!==id):[...favs,id];
-  localStorage.setItem('fmkFavorites',JSON.stringify(favs));
-  openRecipe(id);
-  historyStack.pop(); // avoid adding an extra recipe history entry on refresh
-}
-async function renderFavorites(){
-  await recipesReady;
-  const favs=JSON.parse(localStorage.getItem('fmkFavorites')||'[]');
-  renderGrid(document.getElementById('favoriteGrid'),recipes.filter(r=>favs.includes(r.id)));
-}
-function addRecipeToList(id){
-  const r=findRecipe(id); if(!r)return;
-  let items=JSON.parse(localStorage.getItem('fmkShoppingList')||'[]');
-  items=[...new Set([...items,...(r.ingredients||[])])];
-  localStorage.setItem('fmkShoppingList',JSON.stringify(items));
-  alert('Ingredients added to your shopping list.');
-}
-function renderList(){
-  const items=JSON.parse(localStorage.getItem('fmkShoppingList')||'[]');
-  document.getElementById('shoppingItems').innerHTML=items.length
-    ?items.map((x,i)=>`<li><label><input type="checkbox"> ${escapeHtml(x)}</label></li>`).join('')
-    :'<li>Your shopping list is empty.</li>';
-}
-function clearList(){
-  localStorage.removeItem('fmkShoppingList');renderList();
-}
-function saveCustomRecipe(e){
-  e.preventDefault();
-  const title=document.getElementById('newTitle').value.trim();
-  const r={
-    id:'custom-'+Date.now(),title,
-    category:document.getElementById('newCategory').value,
-    time:'',servings:'',
-    ingredients:document.getElementById('newIngredients').value.split('\n').map(x=>x.trim()).filter(Boolean),
-    steps:document.getElementById('newSteps').value.split('\n').map(x=>x.trim()).filter(Boolean),
-    note:'Added from your From My Kitchen website.'
-  };
-  const saved=JSON.parse(localStorage.getItem('fmkCustomRecipes')||'[]');
-  saved.push(r);localStorage.setItem('fmkCustomRecipes',JSON.stringify(saved));
-  recipes.push(r);e.target.reset();openRecipe(r.id);
-}
-function escapeHtml(s=''){
-  return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
-}
-document.getElementById('homeSearch').addEventListener('keydown',e=>{
-  if(e.key==='Enter'){const q=e.target.value.trim();if(q)showRecipes('All',q);}
-});
+function showNextRecipe(id){const i=recipes.findIndex(r=>r.id===id);if(i<0||!recipes.length)return;openRecipe(recipes[(i+1)%recipes.length].id);historyStack.pop()}
+async function showRecipes(category='All',query=''){const grid=document.getElementById('browseGrid');document.getElementById('browseTitle').textContent='Loading recipes…';grid.innerHTML='<div class="paper-card empty">Loading recipes…</div>';showScreen('browse');await recipesReady;const normalized=String(category||'All').trim().toLowerCase();document.getElementById('browseTitle').textContent=query?`Search: ${query}`:(normalized==='all'?'All Recipes':category);const q=String(query||'').trim().toLowerCase();const list=recipes.filter(r=>{const rc=String(r.category||'').trim().toLowerCase();const text=[r.title,r.category,...(r.ingredients||[])].join(' ').toLowerCase();return(normalized==='all'||rc===normalized)&&(!q||text.includes(q))});renderGrid(grid,list)}
+function renderGrid(el,list){if(!list.length){el.innerHTML='<div class="paper-card empty">No recipes found yet.</div>';return}el.innerHTML=list.map(r=>`<button class="recipe-tile" onclick="openRecipe('${r.id}')"><h3>${escapeHtml(r.title)}</h3><div>${escapeHtml(r.category||'Recipe')} · ${escapeHtml(r.time||'')}</div></button>`).join('')}
+function toggleFavorite(id){let favs=JSON.parse(localStorage.getItem('fmkFavorites')||'[]');favs=favs.includes(id)?favs.filter(x=>x!==id):[...favs,id];localStorage.setItem('fmkFavorites',JSON.stringify(favs));openRecipe(id);historyStack.pop()}
+async function renderFavorites(){await recipesReady;const favs=JSON.parse(localStorage.getItem('fmkFavorites')||'[]');renderGrid(document.getElementById('favoriteGrid'),recipes.filter(r=>favs.includes(r.id)))}
+async function addRecipeToList(id){await recipesReady;const r=findRecipe(id);if(!r)return;let items=JSON.parse(localStorage.getItem('fmkShoppingList')||'[]');items=[...new Set([...items,...(r.ingredients||[])])];localStorage.setItem('fmkShoppingList',JSON.stringify(items));alert('Ingredients added to your shopping list.')}
+function renderList(){const items=JSON.parse(localStorage.getItem('fmkShoppingList')||'[]');document.getElementById('shoppingItems').innerHTML=items.length?items.map(x=>`<li><label><input type="checkbox"> ${escapeHtml(x)}</label></li>`).join(''):'<li>Your shopping list is empty.</li>'}
+function clearList(){localStorage.removeItem('fmkShoppingList');renderList()}
+function saveCustomRecipe(e){e.preventDefault();const title=document.getElementById('newTitle').value.trim();const r={id:'custom-'+Date.now(),title,category:document.getElementById('newCategory').value,time:'',servings:'',ingredients:document.getElementById('newIngredients').value.split('\n').map(x=>x.trim()).filter(Boolean),steps:document.getElementById('newSteps').value.split('\n').map(x=>x.trim()).filter(Boolean),note:'Added from your From My Kitchen website.'};const saved=JSON.parse(localStorage.getItem('fmkCustomRecipes')||'[]');saved.push(r);localStorage.setItem('fmkCustomRecipes',JSON.stringify(saved));recipes.push(r);e.target.reset();openRecipe(r.id)}
+function escapeHtml(s=''){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+document.getElementById('homeSearch').addEventListener('keydown',e=>{if(e.key==='Enter')showRecipes('All',e.target.value.trim())});
 </script>
 </body>
 </html>
